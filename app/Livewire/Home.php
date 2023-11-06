@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
 use Livewire\WithFileUploads;
-
+use App\Mail\ConfirmationMail;
+use App\Mail\RejectMail;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Home extends Component
@@ -26,15 +28,12 @@ class Home extends Component
     }
     public function import()
     {
-        // $this->validate([
-        //     'name' => 'required',
-        //     'file' => 'required|file|mimes:png,jpg,xls,xlsx,doc,docx,ppt,pptx,pdf|max:1024',
-        // ]);
-        Excel::import(new UsersImport, $this->file, null, Excel::CSV);
+
+        Excel::import(new UsersImport, $this->file, \Maatwebsite\Excel\Excel::CSV);
     }
     public function export()
     {
-        return Excel::download(new UsersExport, 'users.xlsx');
+        return Excel::download(new UsersExport, 'users.csv');
     }
     public function delete()
     {
@@ -65,6 +64,14 @@ class Home extends Component
         $this->auth_key = $user['auth_key'];
 
         $this->dispatch('showEditModal');
+    }
+    public function confirm($id){
+        $email = User::where('id', $id)->pluck('email')->first();
+        Mail::to($email)->send(new ConfirmationMail);
+    }
+    public function reject($id){
+        $email = User::where('id', $id)->pluck('email')->first();
+        Mail::to($email)->send(new RejectMail);
     }
     public function update()
     {

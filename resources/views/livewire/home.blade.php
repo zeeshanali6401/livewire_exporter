@@ -1,15 +1,14 @@
 <div class="container mb-5">
     <div class="d-flex">
         <div class="m-5">
-            <form action="">
+            <form wire:submit.prevent="import" enctype="multipart/form-data">
                 <div class="input-group">
-                    <input type="file" class="form-control" wire:model="file" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                    <button  wire:click="import" class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">Button</button>
+                    <input type="file" class="form-control" name="file" wire:model="file" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                    <button type="submit" class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">Import</button>
                   </div>
             </form>
         </div>
-
-        <button type="button" class="btn btn-primary m-5" wire:click="export">Export</button>
+        <button type="button" class="btn btn-outline-primary m-5" wire:click="export">Export</button>
     </div>
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
@@ -32,8 +31,8 @@
                                 wire:click="edit({{ $item->id }})"><i class="bi bi-pencil-square"></i></button>
                             <button type="button" class="btn btn-danger btn-sm"
                                 wire:click="dltModalShow({{ $item->id }})"><i class="bi bi-trash"></i></button>
-                            <button type="button" class="btn btn-info btn-sm"><i class="bi bi-check"></i></button>
-                            <button type="button" class="btn btn-warning btn-sm"><i class="bi bi-x"></i></button>
+                            <button type="button" wire:click="confirm({{ $item->id }})" class="btn btn-info btn-sm"><i class="bi bi-check"></i></button>
+                            <button type="button" wire:click="reject({{ $item->id }})" class="btn btn-warning btn-sm"><i class="bi bi-x"></i></button>
                         </td>
                     </tr>
                 @endforeach
@@ -43,7 +42,7 @@
     <!-- Edit User Modal -->
     <div wire:ignore.self class="modal fade" id="userEditModal" tabindex="-1" data-bs-backdrop="static"
         data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitleId">Modal title</h5>
