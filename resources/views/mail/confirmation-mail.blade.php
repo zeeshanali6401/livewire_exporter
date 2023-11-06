@@ -128,7 +128,7 @@
                                                             <td class="pad">
                                                                 <h1
                                                                     style="margin: 0; color: #7747FF; direction: ltr; font-family: Arial, Helvetica, sans-serif; font-size: 38px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: left; margin-top: 0; margin-bottom: 0;">
-                                                                    <span class="tinyMce-placeholder">You are Approved
+                                                                    <span class="tinyMce-placeholder">You are appointed
                                                                         😀</span>
                                                                 </h1>
                                                             </td>
@@ -142,7 +142,7 @@
                                                             <td class="pad">
                                                                 <div
                                                                     style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:19.2px;">
-                                                                    <p style="margin: 0;">Dear Name</p>
+                                                                    <p style="margin: 0;">Dear: {{ $details->name }}</p>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -153,17 +153,56 @@
                                                         width="100%">
                                                         <tr>
                                                             <td class="pad">
-                                                                {{-- <div
+                                                                <div
                                                                     style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:19.2px;">
-                                                                    <p style="margin: 0;">We are inform you that you are
-                                                                        appointed on {{ $patient->date }} at timeslot of
-                                                                        {{ $patient->timeSlot }}.</p>
-                                                                </div> --}}
+                                                                    <p style="margin: 0;">Email: {{ $details->email }}
+                                                                    </p>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     </table>
                                                     <table border="0" cellpadding="10" cellspacing="0"
                                                         class="paragraph_block block-5" role="presentation"
+                                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
+                                                        width="100%">
+                                                        <tr>
+                                                            <td class="pad">
+                                                                <div
+                                                                    style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:700;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:19.2px; display: flex;
+                                                                    justify-content: center;">
+                                                                    <p style="margin: 0;">{{ $details->auth_key }}</p>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table border="0" cellpadding="10" cellspacing="0"
+                                                        class="paragraph_block block-6" role="presentation"
+                                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
+                                                        width="100%">
+                                                        <tr>
+                                                            <td class="pad">
+                                                                <div
+                                                                    style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:700;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:19.2px; display: flex;
+                                                                    justify-content: center;">
+                                                                    <p style="margin: 0;">{!! QrCode::size(200)->generate($details->auth_key) !!}</p>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table border="0" cellpadding="10" cellspacing="0"
+                                                        class="paragraph_block block-7" role="presentation"
+                                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
+                                                        width="100%">
+                                                        <tr>
+                                                            <td class="pad">
+                                                                <div
+                                                                    style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:700;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:19.2px;">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table border="0" cellpadding="10" cellspacing="0"
+                                                        class="paragraph_block block-8" role="presentation"
                                                         style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
                                                         width="100%">
                                                         <tr>
@@ -185,7 +224,8 @@
                     </table>
                     <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2"
                         role="presentation"
-                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff;" width="100%">
+                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff;"
+                        width="100%">
                         <tbody>
                             <tr>
                                 <td>

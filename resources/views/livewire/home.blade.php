@@ -1,13 +1,16 @@
-<div class="container mb-5">
+<div class="container">
     <div class="d-flex">
-        <div class="m-5">
+        <div class="mt-5">
             <form wire:submit.prevent="import" enctype="multipart/form-data">
                 <div class="input-group">
                     <input type="file" class="form-control" name="file" wire:model="file" id="inputGroupFile04"
                         aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                    <button type="submit" class="btn btn-outline-primary" type="button"
+                        <button type="submit" class="btn btn-outline-primary" type="button"
                         id="inputGroupFileAddon04">Import</button>
-                </div>
+                    </div>
+                    @error('file')
+                        <span style="color: red" class="error">{{ $message }}</span>
+                    @enderror
             </form>
         </div>
         <button type="button" class="btn btn-outline-primary m-5" wire:click="export">Export</button>
@@ -107,29 +110,33 @@
                 <div class="modal-header">
                     <h1 class="modal-title text-primary fs-5" id="confirmationMailLabel">Are You Sure to delete?
                     </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" wire:loading.attr="disabled" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" wire:loading.attr="disabled"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <button type="button" class="btn btn-secondary" wire:loading.attr="disabled" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" wire:loading.attr="disabled" wire:click="confirm">Accept</button>
+                    <button type="button" class="btn btn-secondary" wire:loading.attr="disabled"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" wire:loading.attr="disabled"
+                        wire:click="confirm">Accept</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- QR Modal -->
-    <div class="modal fade" id="QrModal" data-bs-backdrop="static" tabindex="-1"
-        aria-labelledby="QrModalLabel" aria-hidden="true">
+    <div class="modal fade" id="QrModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="QrModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title text-success fs-5" id="QrModalLabel">{{ $QR }}
                     </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" wire:loading.attr="disabled" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" wire:loading.attr="disabled"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     @if (!is_null($QR))
-                        {!! QrCode::size(200)->generate($QR); !!}
+                        {!! QrCode::size(200)->generate($QR) !!}
                     @endif
                 </div>
                 <div class="modal-footer text-center">
@@ -146,11 +153,14 @@
                 <div class="modal-header">
                     <h1 class="modal-title text-danger fs-5" id="rejectMailLabel">Are You Sure to delete?
                     </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" wire:loading.attr="disabled" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" wire:loading.attr="disabled"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <button type="button" class="btn btn-secondary" wire:loading.attr="disabled" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" wire:loading.attr="disabled" wire:click="reject">Reject</button>
+                    <button type="button" class="btn btn-secondary" wire:loading.attr="disabled"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" wire:loading.attr="disabled"
+                        wire:click="reject">Reject</button>
                 </div>
             </div>
         </div>
@@ -180,4 +190,24 @@
             $("#confirmationMail").modal("hide");
             $("#rejectMail").modal("hide");
         })
+
+        window.addEventListener('confirm_swal', event => {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Confirmation Mail sent!",
+                showConfirmButton: false,
+                timer: 1500
+            });;
+        });
+
+        window.addEventListener('reject_swal', event => {
+            Swal.fire({
+                position: "top-end",
+                icon: "warning",
+                title: "Rejection Mail sent!",
+                showConfirmButton: false,
+                timer: 1500
+            });;
+        });
     </script>
