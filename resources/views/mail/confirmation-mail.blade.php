@@ -161,7 +161,7 @@
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                    <table border="0" cellpadding="10" cellspacing="0"
+                                                    {{-- <table border="0" cellpadding="10" cellspacing="0"
                                                         class="paragraph_block block-5" role="presentation"
                                                         style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
                                                         width="100%">
@@ -174,7 +174,7 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                    </table>
+                                                    </table> --}}
                                                     <table border="0" cellpadding="10" cellspacing="0"
                                                         class="paragraph_block block-6" role="presentation"
                                                         style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"

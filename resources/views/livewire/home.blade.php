@@ -95,8 +95,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <button type="button" class="btn btn-danger" wire:click="delete">Delete</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" wire:click="delete">Delete</button>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title text-primary fs-5" id="confirmationMailLabel">Are You Sure to delete?
+                    <h1 class="modal-title text-primary fs-5" id="confirmationMailLabel">Are You Sure to Send Mail?
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" wire:loading.attr="disabled"
                         aria-label="Close"></button>
@@ -151,7 +151,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title text-danger fs-5" id="rejectMailLabel">Are You Sure to delete?
+                    <h1 class="modal-title text-danger fs-5" id="rejectMailLabel">Send Rejection Mail?
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" wire:loading.attr="disabled"
                         aria-label="Close"></button>
