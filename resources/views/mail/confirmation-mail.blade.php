@@ -114,7 +114,7 @@
                                                             <td class="pad" style="width:100%;">
                                                                 <div align="center" class="alignment"
                                                                     style="line-height:10px"><img
-                                                                        src="{{ asset('images/confirmationedm.webp') }}"
+                                                                        src="{{ $message->embed(public_path() . '/images/confirmationedm.webp') }}"
                                                                         style="display: block; height: auto; border: 0; max-width: 600px; width: 100%;"
                                                                         width="600" /></div>
                                                             </td>
@@ -129,7 +129,8 @@
                                                                 <h1
                                                                     style="margin: 0; color: #7747FF; direction: ltr; font-family: Arial, Helvetica, sans-serif; font-size: 38px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: left; margin-top: 0; margin-bottom: 0;">
                                                                     <span class="tinyMce-placeholder">You are Approved
-                                                                        😀</span></h1>
+                                                                        😀</span>
+                                                                </h1>
                                                             </td>
                                                         </tr>
                                                     </table>

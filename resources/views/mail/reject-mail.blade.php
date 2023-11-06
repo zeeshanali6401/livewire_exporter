@@ -114,7 +114,9 @@
                                                             <td class="pad" style="width:100%;">
                                                                 <div align="center" class="alignment"
                                                                     style="line-height:10px"><img
-                                                                        src="{{ asset('images/rejection.webp') }}"
+                                                                        src="{{ $message->embed(public_path() . '/images/rejection.webp') }}"
+
+
                                                                         style="display: block; height: auto; border: 0; max-width: 600px; width: 100%;"
                                                                         width="600" /></div>
                                                             </td>

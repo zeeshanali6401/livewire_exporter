@@ -11,25 +11,28 @@ use App\Mail\ConfirmationMail;
 use App\Mail\RejectMail;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use Livewire\WithPagination;
 
 class Home extends Component
 {
+    use WithPagination;
     use WithFileUploads;
-    public $name, $email, $auth_key, $user_id;
+    public $name, $email, $auth_key, $QR, $user_id;
     public $deleteUserId, $file;
-
-
+    protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $collection = User::where('email', '!=', auth()->user()->email)->get();
+        $collection = User::where('email', '!=', auth()->user()->email)->paginate(7);
         return view('livewire.home', [
-            'collection' => $collection
+            'collection' => $collection,
+            'QR' => $this->QR,
         ]);
     }
     public function import()
     {
 
         Excel::import(new UsersImport, $this->file, \Maatwebsite\Excel\Excel::CSV);
+        $this->render();
     }
     public function export()
     {
@@ -65,13 +68,21 @@ class Home extends Component
 
         $this->dispatch('showEditModal');
     }
-    public function confirm($id){
-        $email = User::where('id', $id)->pluck('email')->first();
-        Mail::to($email)->send(new ConfirmationMail);
+    public function confirm(){
+        Mail::to($this->email)->send(new ConfirmationMail);
+        $this->dispatch('hideModal');
     }
-    public function reject($id){
-        $email = User::where('id', $id)->pluck('email')->first();
-        Mail::to($email)->send(new RejectMail);
+    public function showConfirmMailModal($id){
+        $this->email = User::where('id', $id)->pluck('email')->first();
+        $this->dispatch('showConfirmMailModal');
+    }
+    public function rejectMailModal($id){
+        $this->email = User::where('id', $id)->pluck('email')->first();
+        $this->dispatch('rejectMailModal');
+    }
+    public function reject(){
+        Mail::to($this->email)->send(new RejectMail);
+        $this->dispatch('hideModal');
     }
     public function update()
     {
@@ -80,5 +91,9 @@ class Home extends Component
         $user->email = $this->email;
         $user->update();
         $this->dispatch('hideModal');
+    }
+    public function qr($id){
+        $this->dispatch('showQrModal');
+        $this->QR = User::where('id', $id)->pluck('auth_key')->first();
     }
 }
