@@ -136,7 +136,9 @@
                 </div>
                 <div class="modal-body text-center">
                     @if (!is_null($QR))
-                        {!! QrCode::size(200)->generate($QR) !!}
+                    
+                    {{-- {{ QrCode::format('eps')->generate($QR) }} --}}
+                        {{-- <img src="{{ base64_encode(QrCode::format('svg')->generate($QR)) }}" alt="qr"> --}}
                     @endif
                 </div>
                 <div class="modal-footer text-center">

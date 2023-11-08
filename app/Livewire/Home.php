@@ -12,6 +12,8 @@ use App\Mail\RejectMail;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use Livewire\WithPagination;
+use BaconQrCode\Renderer\Image\Png;
+use BaconQrCode\Writer;
 
 class Home extends Component
 {
@@ -112,7 +114,11 @@ class Home extends Component
     }
     public function qr($id)
     {
-        $this->dispatch('showQrModal');
         $this->QR = User::where('id', $id)->pluck('auth_key')->first();
+        if (!file_exists(public_path() . "/qr/{$this->QR}.png")) {
+            storeImageFromUrl("https://api.qrserver.com/v1/create-qr-code/?data={$this->QR}&size=300x300", "/qr/{$this->QR}.png");
+        }
+
+        $this->dispatch('showQrModal');
     }
 }

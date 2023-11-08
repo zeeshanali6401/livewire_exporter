@@ -184,7 +184,10 @@
                                                                 <div
                                                                     style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:700;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:19.2px; display: flex;
                                                                     justify-content: center;">
-                                                                    <p style="margin: 0;">{!! QrCode::size(200)->generate($details->auth_key) !!}</p>
+                                                                    {{-- <img src="data:image/png;base64, {{ base64_encode(QrCode::format('svg')->generate($details->auth_key)) }}" alt="qr"> --}}
+                                                                    {{-- <p style="margin: 0;">{{ $message->embed(QrCode::size(200)->generate($details->auth_key)) }}</p> --}}
+                                                                    <p style="margin: 0;">{{ $message->embedData(QrCode::format('png')->size(200)->generate($details->auth_key), 'QrCode.png') }}</p>
+
                                                                 </div>
                                                             </td>
                                                         </tr>
