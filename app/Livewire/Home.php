@@ -12,8 +12,6 @@ use App\Mail\RejectMail;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use Livewire\WithPagination;
-use BaconQrCode\Renderer\Image\Png;
-use BaconQrCode\Writer;
 
 class Home extends Component
 {
@@ -82,17 +80,11 @@ class Home extends Component
         $this->dispatch('showEditModal');
     }
     public function confirm()
-{
-    try {
+    {
         Mail::to($this->email)->send(new ConfirmationMail($this->details));
         $this->dispatch('hideModal');
         $this->dispatch('confirm_swal');
-    } catch (\Exception $e) {
-        $this->dispatch('hideModal');
-        $errorMessage = $e->getMessage();
-        $this->dispatch('error_swal', ['message' => 'done']);        
     }
-}
     public function showConfirmMailModal($id)
     {
         $this->email = User::where('id', $id)->pluck('email')->first();
@@ -127,4 +119,14 @@ class Home extends Component
 
         $this->dispatch('showQrModal');
     }
+    public function qr_gen(){
+        $users = User::all();
+
+        foreach($users as $user){
+                if (!file_exists(public_path() . "/qr/{$user->auth_key}.png")) {
+                storeImageFromUrl("https://api.qrserver.com/v1/create-qr-code/?data={$user->auth_key}&size=300x300", "/qr/{$user->auth_key}.png");
+            }
+        }
+    }
+
 }

@@ -161,33 +161,17 @@
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                    {{-- <table border="0" cellpadding="10" cellspacing="0"
-                                                        class="paragraph_block block-5" role="presentation"
-                                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
-                                                        width="100%">
-                                                        <tr>
-                                                            <td class="pad">
-                                                                <div
-                                                                    style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:700;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:19.2px; display: flex;
-                                                                    justify-content: center;">
-                                                                    <p style="margin: 0;">{{ $details->auth_key }}</p>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table> --}}
                                                     <table border="0" cellpadding="10" cellspacing="0"
                                                         class="paragraph_block block-6" role="presentation"
                                                         style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
                                                         width="100%">
                                                         <tr>
                                                             <td class="pad">
-                                                                <div
-                                                                    style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:700;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:19.2px; display: flex;
-                                                                    justify-content: center;">
-                                                                    {{-- <img src="data:image/png;base64, {{ base64_encode(QrCode::format('svg')->generate($details->auth_key)) }}" alt="qr"> --}}
-                                                                    {{-- <p style="margin: 0;">{{ $message->embed(QrCode::size(200)->generate($details->auth_key)) }}</p> --}}
-                                                                    <p style="margin: 0;">{{ $message->embedData(QrCode::format('png')->size(200)->generate($details->auth_key), 'QrCode.png') }}</p>
-
+                                                                <div align="center" class="alignment"
+                                                                    style="line-height:10px">
+                                                                    <img src="{{ $message->embed(public_path('qr/' . $details->auth_key . '.png')) }}"
+                                                                        style="display: block; height: auto; border: 0; max-width: 200px; width: 100%;"
+                                                                        width="600" />
                                                                 </div>
                                                             </td>
                                                         </tr>

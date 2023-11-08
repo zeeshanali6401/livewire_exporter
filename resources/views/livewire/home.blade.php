@@ -14,6 +14,8 @@
             </form>
         </div>
         <button type="button" class="btn btn-outline-primary m-5" wire:click="export">Export</button>
+        <button type="button" wire:loading.atrribute="disabled" class="btn btn-outline-success mt-5 me-5 mb-5" wire:click="qr_gen">Generate QR</button>
+
     </div>
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
@@ -136,13 +138,7 @@
                 </div>
                 <div class="modal-body text-center">
                     @if (!is_null($QR))
-<<<<<<< HEAD
-                    
-                    {{-- {{ QrCode::format('eps')->generate($QR) }} --}}
-                        {{-- <img src="{{ base64_encode(QrCode::format('svg')->generate($QR)) }}" alt="qr"> --}}
-=======
-                        {!! QrCode::format('png')->generate($QR) !!}
->>>>>>> 03d023063c3a10f614b6edaa950ff5ea51d9767a
+                    {!! QrCode::format('svg')->generate($QR) !!}
                     @endif
                 </div>
                 <div class="modal-footer text-center">
@@ -224,5 +220,5 @@
                 timer: 1500
             });;
         });
-            
+
     </script>
