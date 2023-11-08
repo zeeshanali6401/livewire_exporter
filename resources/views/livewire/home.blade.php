@@ -14,7 +14,7 @@
             </form>
         </div>
         <button type="button" class="btn btn-outline-primary m-5" wire:click="export">Export</button>
-        <button type="button" wire:loading.atrribute="disabled" class="btn btn-outline-success mt-5 me-5 mb-5" wire:click="qr_gen">Generate QR</button>
+        <button type="button" wire:loading.attr="disabled" class="btn btn-outline-success mt-5 me-5 mb-5" wire:click="qr_gen">Generate QR</button>
 
     </div>
     <div class="table-responsive">
@@ -33,7 +33,7 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
                         <td class="font-monospace text-center">{{ $item->auth_key }}
-                            <button wire:click="qr({{ $item->id }})" class="btn btn-secondary btn-sm">Qr</button>
+                            <button wire:click="qr_show({{ $item->id }})" class="btn btn-secondary btn-sm">Qr</button>
                         </td>
                         <td class="text-center">
                             <button type="button" class="btn btn-primary btn-sm"
@@ -131,7 +131,7 @@
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title text-success fs-5" id="QrModalLabel">{{ $QR }}
+                    <h1 class="modal-title text-success fs-5" id="QrModalLabel">Auth Key: {{ $QR }}
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" wire:loading.attr="disabled"
                         aria-label="Close"></button>
@@ -139,6 +139,7 @@
                 <div class="modal-body text-center">
                     @if (!is_null($QR))
                     {!! QrCode::format('svg')->generate($QR) !!}
+                    {{-- <img src="{{ $message->embed(public_path('qr/' . $Q . '.png')) }}" alt=""> --}}
                     @endif
                 </div>
                 <div class="modal-footer text-center">
