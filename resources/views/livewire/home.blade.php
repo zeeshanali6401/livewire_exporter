@@ -5,12 +5,12 @@
                 <div class="input-group">
                     <input type="file" class="form-control" name="file" wire:model="file" id="inputGroupFile04"
                         aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                        <button type="submit" class="btn btn-outline-primary" type="button"
+                    <button type="submit" class="btn btn-outline-primary" type="button"
                         id="inputGroupFileAddon04">Import</button>
-                    </div>
-                    @error('file')
-                        <span style="color: red" class="error">{{ $message }}</span>
-                    @enderror
+                </div>
+                @error('file')
+                    <span style="color: red" class="error">{{ $message }}</span>
+                @enderror
             </form>
         </div>
         <button type="button" class="btn btn-outline-primary m-5" wire:click="export">Export</button>
@@ -136,7 +136,7 @@
                 </div>
                 <div class="modal-body text-center">
                     @if (!is_null($QR))
-                        {!! QrCode::size(200)->generate($QR) !!}
+                        {!! QrCode::format('png')->generate($QR) !!}
                     @endif
                 </div>
                 <div class="modal-footer text-center">
@@ -210,4 +210,13 @@
                 timer: 1500
             });;
         });
+
+        window.addEventListener('error_swal', event => {
+            Swal.fire({
+                icon: "error",
+                title: "Rejection Mail sent!",
+                timer: 1500
+            });;
+        });
+            
     </script>
