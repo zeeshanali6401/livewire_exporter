@@ -80,11 +80,17 @@ class Home extends Component
         $this->dispatch('showEditModal');
     }
     public function confirm()
-    {
+{
+    try {
         Mail::to($this->email)->send(new ConfirmationMail($this->details));
         $this->dispatch('hideModal');
         $this->dispatch('confirm_swal');
+    } catch (\Exception $e) {
+        $this->dispatch('hideModal');
+        $errorMessage = $e->getMessage();
+        $this->dispatch('error_swal', ['message' => 'done']);        
     }
+}
     public function showConfirmMailModal($id)
     {
         $this->email = User::where('id', $id)->pluck('email')->first();
