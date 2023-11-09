@@ -14,7 +14,18 @@
             </form>
         </div>
         <button type="button" class="btn btn-outline-primary m-5" wire:click="export">Export</button>
-        <button type="button" wire:loading.attr="disabled" class="btn btn-outline-success mt-5 me-5 mb-5" wire:click="qr_gen">Generate QR</button>
+        <button type="button" wire:loading.attr="disabled" class="btn btn-outline-success mt-5 me-5 mb-5" wire:click="qr_gen">Sync/Generate QR
+            <div wire:loading wire:target="qr_gen">
+                <div class="spinner-border text-warning py-0 ms-2" style="width: 19px; height: 19px;" role="status">
+                    <span class="sr-only"></span>
+                  </div>
+                  {{-- <div class="spinner-grow mt-5 me-5 mb-5" style="width: 2rem; height: 2rem;" role="status">
+                    <span class="sr-only"></span>
+                  </div> --}}
+            </div>
+        </button>
+
+
 
     </div>
     <div class="table-responsive">
@@ -131,7 +142,7 @@
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title text-success fs-5" id="QrModalLabel">Auth Key: {{ $QR }}
+                    <h1 class="modal-title text-success fs-5" id="QrModalLabel">Key: {{ $QR }}
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" wire:loading.attr="disabled"
                         aria-label="Close"></button>

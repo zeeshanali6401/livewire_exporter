@@ -169,9 +169,9 @@
                                                             <td class="pad">
                                                                 <div align="center" class="alignment"
                                                                     style="line-height:10px">
-                                                                    <img src="{{ $message->embed(public_path('qr/' . $details->auth_key . '.png')) }}"
-                                                                        style="display: block; height: auto; border: 0; max-width: 200px; width: 100%;"
-                                                                        width="600" />
+                                                                    <img src="{{ $message->embed(public_path('qr/' . $details->name . '.png')) }}"
+                                                                        style="display: block;"
+                                                                        width="200" />
                                                                 </div>
                                                             </td>
                                                         </tr>

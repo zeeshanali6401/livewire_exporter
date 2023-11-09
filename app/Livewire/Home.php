@@ -114,17 +114,15 @@ class Home extends Component
     {
         $this->dispatch('showQrModal');
         $this->QR = User::where('id', $id)->pluck('auth_key')->first();
-
-
     }
-    public function qr_gen(){
+    public function qr_gen()
+    {
         $users = User::where('id', '!=', auth()->user()->id)->get();
 
-        foreach($users as $user){
-                if (!file_exists(public_path() . "/qr/{$user->auth_key}.png")) {
-                storeImageFromUrl("https://api.qrserver.com/v1/create-qr-code/?data={$user->auth_key}&size=300x300&format=png", "/qr/{$user->id}.png");
+        foreach ($users as $user) {
+            if (!file_exists(public_path() . "/qr/{$user->auth_key}.png")) {
+                storeImageFromUrl("https://api.qrserver.com/v1/create-qr-code/?data={$user->auth_key}&size=300x300", "/qr/{$user->name}.png");
             }
         }
     }
-
 }
