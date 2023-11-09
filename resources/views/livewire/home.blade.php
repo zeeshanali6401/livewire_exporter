@@ -14,19 +14,19 @@
             </form>
         </div>
         <button type="button" class="btn btn-outline-primary m-5" wire:click="export">Export</button>
-        <button type="button" wire:loading.attr="disabled" class="btn btn-outline-success mt-5 me-5 mb-5" wire:click="qr_gen">Sync/Generate QR
+        <button type="button" wire:loading.attr="disabled" class="btn btn-outline-success mt-5 me-5 mb-5"
+            wire:click="qr_gen">Sync/Generate QR
             <div wire:loading wire:target="qr_gen">
                 <div class="spinner-border text-warning py-0 ms-2" style="width: 19px; height: 19px;" role="status">
                     <span class="sr-only"></span>
-                  </div>
-                  {{-- <div class="spinner-grow mt-5 me-5 mb-5" style="width: 2rem; height: 2rem;" role="status">
-                    <span class="sr-only"></span>
-                  </div> --}}
+                </div>
             </div>
         </button>
-
-
-
+        <div class="card bg-secondary m-4" style="width: 13rem;height: 4rem;">
+            <div class="card-body">
+              <span class="card-title fs-4 text-light"><i class="bi bi-eye-fill"></i> Total Users {{ $counter }}</span>
+            </div>
+          </div>
     </div>
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
@@ -44,7 +44,8 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
                         <td class="font-monospace text-center">{{ $item->auth_key }}
-                            <button wire:click="qr_show({{ $item->id }})" class="btn btn-secondary btn-sm">Qr</button>
+                            <button wire:click="qr_show({{ $item->id }})"
+                                class="btn btn-secondary btn-sm">Qr</button>
                         </td>
                         <td class="text-center">
                             <button type="button" class="btn btn-primary btn-sm"
@@ -85,8 +86,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Auth Key</label>
-                            <input type="text" class="form-control" wire:model="auth_key" aria-describedby="helpId"
-                                @readonly(true) placeholder="Edit Email">
+                            <input type="text" class="form-control" wire:model="auth_key"
+                                aria-describedby="helpId" @readonly(true) placeholder="Edit Email">
                         </div>
                         <div class="modal-footer">
                             <button type="button" wire:click="update" class="btn btn-primary">Update</button>
@@ -127,10 +128,16 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <button type="button" class="btn btn-secondary" wire:loading.attr="disabled"
+                    <button type="button" class="btn btn-secondary" wire:loading.remove
                         data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" wire:loading.attr="disabled"
+                    <button type="button" class="btn btn-primary" wire:loading.attr="disabled" wire:loading.remove
                         wire:click="confirm">Accept</button>
+                    <div wire:loading wire:target="confirm">
+                        <div class="spinner-grow text-warning py-0 ms-2" style="width: 2rem; height: 2rem;"
+                            role="status">
+                            <span class="sr-only"></span>
+                        </div><br><span class="text-center">Please wait...</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,8 +156,7 @@
                 </div>
                 <div class="modal-body text-center">
                     @if (!is_null($QR))
-                    {!! QrCode::format('svg')->generate($QR) !!}
-                    {{-- <img src="{{ $message->embed(public_path('qr/' . $Q . '.png')) }}" alt=""> --}}
+                        {!! QrCode::format('svg')->generate($QR) !!}
                     @endif
                 </div>
                 <div class="modal-footer text-center">
@@ -232,5 +238,4 @@
                 timer: 1500
             });;
         });
-
     </script>

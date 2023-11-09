@@ -17,14 +17,15 @@ class Home extends Component
 {
     use WithPagination;
     use WithFileUploads;
-    public $name, $email, $auth_key, $QR, $user_id, $details;
-    public $deleteUserId, $file;
+    public $name, $email, $auth_key, $QR, $user_id, $details = null;
+    public $deleteUserId, $file, $counter;
     protected $paginationTheme = 'bootstrap';
     protected $rules = [
         'file' => 'required|file|mimes:csv|max:1024',
     ];
     public function render()
     {
+        $this->counter = User::where('id', '!=', auth()->user()->id)->count();
         $collection = User::where('email', '!=', auth()->user()->email)->paginate(13);
         return view('livewire.home', [
             'collection' => $collection,
