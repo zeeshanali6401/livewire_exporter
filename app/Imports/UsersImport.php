@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\User;
+use App\Models\Import;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Str;
@@ -17,22 +17,54 @@ class UsersImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        $user = new User();
-        if (isset($row['#'])) {
-            $user->id = $row['id'];
+        $import = new Import();
+        if (isset($row['s/n'])) {
+            $import->id = $row['id'];
         }
         if (isset($row['name'])) {
-            $user->name = $row['name'];
+            $import->name = $row['name'];
         }
-        if (isset($row['email']))
-            $user->email = $row['email'];
-
+        if (isset($row['division'])){
+            $import->division = $row['division'];
+        }
+        if (isset($row['email'])){
+            $import->email = $row['email'];
+        }
+        if (isset($row['assigned_table'])){
+            $import->assigned_table = $row['assigned_table'];
+        }
+        if (isset($row['lucky_draw_bladklist'])){
+            $import->lucky_draw_bladklist = $row['lucky_draw_bladklist'];
+        }
+        if (isset($row['lucky_draw_number'])){
+            $import->lucky_draw_number = $row['lucky_draw_number'];
+        }
+        if (isset($row['dietary_prefrences'])){
+            $import->dietary_prefrences = $row['dietary_prefrences'];
+        }
         if (!empty($row['auth_key'])) { {
-                $user->auth_key = $row['auth_key'];
+                $import->auth_key = $row['auth_key'];
             }
         } else {
-            $user->auth_key = Str::random(16);
+            $import->auth_key = Str::random(16);
         }
-        $user->save();
+        $import->save();
+        // $import = new import();
+        // if (isset($row['#'])) {
+        //     $import->id = $row['id'];
+        // }
+        // if (isset($row['name'])) {
+        //     $import->name = $row['name'];
+        // }
+        // if (isset($row['email']))
+        //     $import->email = $row['email'];
+
+        // if (!empty($row['auth_key'])) { {
+        //         $import->auth_key = $row['auth_key'];
+        //     }
+        // } else {
+        //     $import->auth_key = Str::random(16);
+        // }
+        // $import->save();
     }
 }

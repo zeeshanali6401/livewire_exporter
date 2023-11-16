@@ -5,7 +5,7 @@
                 <div class="input-group">
                     <input type="file" class="form-control" name="file" wire:model="file" id="inputGroupFile04"
                         aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                    <button type="submit" class="btn btn-outline-primary" type="button"
+                    <button type="submit" class="btn btn-outline-primary" type="button" wire:loading.attr="disabled"
                         id="inputGroupFileAddon04">Import</button>
                 </div>
                 @error('file')
@@ -22,7 +22,7 @@
                 </div>
             </div>
         </button>
-        <div class="card bg-secondary m-4" style="width: 13rem;height: 4rem;">
+        <div class="card bg-secondary m-4" style="width: 13rem;height: 6rem;">
             <div class="card-body">
               <span class="card-title fs-4 text-light"><i class="bi bi-eye-fill"></i> Total Users {{ $counter }}</span>
             </div>
@@ -32,8 +32,14 @@
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
+                    <th scope="col">S/N</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Division</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Dietary Prefrences</th>
+                    <th scope="col">Assigned Table</th>
+                    <th scope="col">Lucky Draw Blacklist</th>
+                    <th scope="col">Lucky Draw Number</th>
                     <th class="text-center">Auth Key</th>
                     <th class="text-center">Action</th>
                 </tr>
@@ -41,8 +47,14 @@
             <tbody>
                 @foreach ($collection as $item)
                     <tr>
+                        <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
+                        <td>{{ $item->division }}</td>
                         <td>{{ $item->email }}</td>
+                        <td>{{ $item->dietary_prefrences }}</td>
+                        <td>{{ $item->assigned_table }}</td>
+                        <td>{{ $item->lucky_draw_table }}</td>
+                        <td>{{ $item->lucky_draw_table }}</td>
                         <td class="font-monospace text-center">{{ $item->auth_key }}
                             <button wire:click="qr_show({{ $item->id }})"
                                 class="btn btn-secondary btn-sm">Qr</button>
@@ -52,9 +64,9 @@
                                 wire:click="edit({{ $item->id }})"><i class="bi bi-pencil-square"></i></button>
                             <button type="button" class="btn btn-danger btn-sm"
                                 wire:click="dltModalShow({{ $item->id }})"><i class="bi bi-trash"></i></button>
-                            <button type="button" wire:click="showConfirmMailModal({{ $item->id }})"
+                            <button disabled type="button" wire:click="showConfirmMailModal({{ $item->id }})"
                                 class="btn btn-info btn-sm"><i class="bi bi-check"></i></button>
-                            <button type="button" wire:click="rejectMailModal({{ $item->id }})"
+                            <button disabled type="button" wire:click="rejectMailModal({{ $item->id }})"
                                 class="btn btn-warning btn-sm"><i class="bi bi-x"></i></button>
                         </td>
                     </tr>

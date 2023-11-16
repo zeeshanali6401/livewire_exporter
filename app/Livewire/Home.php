@@ -11,6 +11,7 @@ use App\Mail\ConfirmationMail;
 use App\Mail\RejectMail;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Import;
 use Livewire\WithPagination;
 
 class Home extends Component
@@ -25,8 +26,8 @@ class Home extends Component
     ];
     public function render()
     {
-        $this->counter = User::where('id', '!=', auth()->user()->id)->count();
-        $collection = User::where('email', '!=', auth()->user()->email)->paginate(13);
+        $this->counter = Import::count();
+        $collection = Import::paginate(13);
         return view('livewire.home', [
             'collection' => $collection,
             'QR' => $this->QR,
@@ -52,7 +53,7 @@ class Home extends Component
     }
     public function delete()
     {
-        $user = User::find($this->deleteUserId);
+        $user = Import::find($this->deleteUserId);
         if (!is_null($user)) {
             $user->delete();
         }
@@ -72,7 +73,7 @@ class Home extends Component
     }
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = Import::find($id);
         $this->user_id = $id;
         $this->name = $user['name'];
         $this->email = $user['email'];
@@ -88,13 +89,13 @@ class Home extends Component
     }
     public function showConfirmMailModal($id)
     {
-        $this->email = User::where('id', $id)->pluck('email')->first();
-        $this->details = User::where('id', $id)->first();
+        $this->email = Import::where('id', $id)->pluck('email')->first();
+        $this->details = Import::where('id', $id)->first();
         $this->dispatch('showConfirmMailModal');
     }
     public function rejectMailModal($id)
     {
-        $this->email = User::where('id', $id)->pluck('email')->first();
+        $this->email = Import::where('id', $id)->pluck('email')->first();
         $this->dispatch('rejectMailModal');
     }
     public function reject()
@@ -105,7 +106,7 @@ class Home extends Component
     }
     public function update()
     {
-        $user = User::find($this->user_id);
+        $user = Import::find($this->user_id);
         $user->name = $this->name;
         $user->email = $this->email;
         $user->update();
@@ -114,11 +115,11 @@ class Home extends Component
     public function qr_show($id)
     {
         $this->dispatch('showQrModal');
-        $this->QR = User::where('id', $id)->pluck('auth_key')->first();
+        $this->QR = Import::where('id', $id)->pluck('auth_key')->first();
     }
     public function qr_gen()
     {
-        $users = User::where('id', '!=', auth()->user()->id)->get();
+        $users = Import::where('id', '!=', auth()->user()->id)->get();
 
         foreach ($users as $user) {
             if (!file_exists(public_path() . "/qr/{$user->auth_key}.png")) {
