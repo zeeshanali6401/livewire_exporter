@@ -119,12 +119,15 @@ class Home extends Component
     }
     public function qr_gen()
     {
-        $users = Import::where('id', '!=', auth()->user()->id)->get();
+        $users = Import::all();
 
         foreach ($users as $user) {
             if (!file_exists(public_path() . "/qr/{$user->auth_key}.png")) {
                 storeImageFromUrl("https://api.qrserver.com/v1/create-qr-code/?data={$user->auth_key}&size=300x300", "/qr/{$user->name}.png");
             }
         }
+    }
+    public function clear(){
+        Import::truncate();
     }
 }

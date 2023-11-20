@@ -13,7 +13,8 @@
                 @enderror
             </form>
         </div>
-        <button type="button" class="btn btn-outline-primary m-5" wire:click="export">Export</button>
+        <button type="button" class="btn btn-outline-primary my-5 mx-5" wire:click="export">Export</button>
+        <button type="button" class="btn btn-outline-danger my-5 ms-2 me-5" wire:click="clear">Clear All</button>
         <button type="button" wire:loading.attr="disabled" class="btn btn-outline-success mt-5 me-5 mb-5"
             wire:click="qr_gen">Sync/Generate QR
             <div wire:loading wire:target="qr_gen">
@@ -22,9 +23,10 @@
                 </div>
             </div>
         </button>
-        <div class="card bg-secondary m-4" style="width: 13rem;height: 6rem;">
-            <div class="card-body">
-              <span class="card-title fs-4 text-light"><i class="bi bi-eye-fill"></i> Total Users {{ $counter }}</span>
+        <div class="card bg-secondary m-4" style="width: 11rem;height: 4rem;">
+            <div class="card-body py-0">
+              <span class="card-title fs-4 text-light"><i class="bi bi-eye-fill text-center"></i> Total Users</span><br>
+              <h3 class="text-white py-0 text-center">{{ $counter }}</h3>
             </div>
           </div>
     </div>
